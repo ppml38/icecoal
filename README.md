@@ -16,7 +16,7 @@ Targets are,
 
 ### In action
 #### Create a Database
-![](art/demo/create_db.png)
+![](art/demo/create_db.PNG)
 #### Create a table
 ![](art/demo/create_tb.png)
 #### Insert a row in a table
@@ -35,6 +35,7 @@ Targets are,
 ![](art/demo/drop_db.png)
 
 #### Processing csv files with SQL
+![](art/dataflow.png)
 
 ![](art/demo/csv.png)
 
