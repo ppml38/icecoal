@@ -16,7 +16,7 @@ Targets are,
 
 ### In action
 #### Create a Database
-![](art/create_db.png)
+![](art/demo/create_db.png)
 #### Create a table
 ![](art/create_tb.png)
 #### Insert a row in a table
