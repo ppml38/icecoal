@@ -116,15 +116,15 @@ icecoal.query("select * from path/to/passengers.csv, path/to/header.csv where na
 | DELETE |
 
 ### Supported SQL operations and its syntax
-* SELECT *column_list* FROM *\[path/to/]databasename/tablename\[.csv]* \[WHERE *condition*]
-* CREATE DATABASE *\[path/to/]databasename*
-* CREATE TABLE *\[path/to/]databasename/tablename\[.csv]*(*colum1,column2..*)
-* DROP DATABASE *\[path/to/]databasename*
-* DROP TABLE *\[path/to/]databasename/tablename\[.csv]*
-* TRUNCATE TABLE *\[path/to/]databasename/tablename\[.csv]*
-* INSERT INTO *\[path/to/]databasename/tablename\[.csv]*(*value1,value2,..*)
-* UPDATE *\[path/to/]databasename/tablename\[.csv]* SET *field1=value1,field2=value..* \[WHERE *condition*]
-* DELETE FROM *\[path/to/]databasename/tablename\[.csv]* WHERE *condition*
+* SELECT *column_list* FROM \[*path/to/*]*databasename/tablename*\[*.csv*] \[WHERE *condition*]
+* CREATE DATABASE \[*path/to/*]*databasename*
+* CREATE TABLE \[*path/to/*]*databasename/tablename*\[*.csv*](*colum1,column2..*)
+* DROP DATABASE \[*path/to/*]*databasename*
+* DROP TABLE \[*path/to/*]*databasename/tablename*\[*.csv*]
+* TRUNCATE TABLE \[*path/to/*]*databasename/tablename*\[*.csv*]
+* INSERT INTO \[*path/to/*]*databasename/tablename*\[*.csv*](*value1,value2,..*)
+* UPDATE \[*path/to/*]*databasename/tablename*\[*.csv*] SET *field1=value1,field2=value..* \[WHERE *condition*]
+* DELETE FROM \[*path/to/*]*databasename/tablename*\[*.csv*] WHERE *condition*
 
 ### Operators supported
 | Operator type | Operators |
