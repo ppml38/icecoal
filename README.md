@@ -40,7 +40,7 @@ Targets are,
 
 ### How to install
 ```
-pip install cosevadb
+pip install icecoal
 ```
 
 ### Usage
@@ -56,7 +56,7 @@ icecoal.query("select * from path/to/passengers.csv where native='USA'")
 ```
 Here icecoal expects first line of csv file to be header line.    
 if it is not, you can either add headers in first line    
-or create a new file just with headers delimited with comma and add it in the query as below    
+or create a new file just with headers delimited with comma and add it along with data file name in the query as below    
 ```python
 from icecoal import icecoal
 icecoal.query("select * from path/to/passengers.csv, path/to/header.csv where native='USA'")
@@ -158,6 +158,7 @@ icecoal.query("select * from path/to/passengers.csv, path/to/header.csv where na
 Comma seperated value(.csv) files.
 
 ### Instructions
+* Tables are referred with '/' character from database like 'db/table'
 * String values should be within '<string>'
 * Comparison operator '=' is used instead of '=='
 * Database,table names can contain only alphabet, number and underscore
