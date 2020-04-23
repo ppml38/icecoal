@@ -18,25 +18,25 @@ Targets are,
 #### Create a Database
 ![](art/demo/create_db.png)
 #### Create a table
-![](art/create_tb.png)
+![](art/demo/create_tb.png)
 #### Insert a row in a table
-![](art/insert.png)
+![](art/demo/insert.png)
 #### Update a row in a table
-![](art/update.png)
+![](art/demo/update.png)
 #### Delete a row in a table
-![](art/delete.png)
+![](art/demo/delete.png)
 #### Select rows from a table
-![](art/select.png)
+![](art/demo/select.png)
 #### Truncate a table
-![](art/truncate.png)
+![](art/demo/truncate.png)
 #### Drop a table
-![](art/drop_tb.png)
+![](art/demo/drop_tb.png)
 #### Drop a database
-![](art/drop_db.png)
+![](art/demo/drop_db.png)
 
 #### Processing csv files with SQL
 
-![](art/csv.png)
+![](art/demo/csv.png)
 
 ### How to install
 ```
@@ -114,16 +114,16 @@ icecoal.query("select * from path/to/passengers.csv, path/to/header.csv where na
 | DROP |
 | DELETE |
 
-### Supported SQL operations
-* SELECT *column_list* FROM *path/to/databasename/tablename.csv,path/to/database/table_header.csv* \[WHERE *condition*]
-* CREATE DATABASE *path/to/databasename*
-* CREATE TABLE *path/to/databasename/tablename.csv*(*colum1,column2..*)
-* DROP DATABASE *path/to/databasename*
-* DROP TABLE *path/to/databasename/tablename.csv*
-* TRUNCATE TABLE *path/to/databasename/tablename.csv*
-* INSERT INTO *path/to/databasename/tablename.csv*(*value1,value2,..*)
-* UPDATE *path/to/databasename/tablename.csv* SET *field1=value1,field2=value..* \[WHERE *condition*]
-* DELETE FROM *path/to/databasename/tablename.csv* WHERE *condition*
+### Supported SQL operations and its syntax
+* SELECT *column_list* FROM *\[path/to/]databasename/tablename\[.csv]* \[WHERE *condition*]
+* CREATE DATABASE *\[path/to/]databasename*
+* CREATE TABLE *\[path/to/]databasename/tablename\[.csv]*(*colum1,column2..*)
+* DROP DATABASE *\[path/to/]databasename*
+* DROP TABLE *\[path/to/]databasename/tablename\[.csv]*
+* TRUNCATE TABLE *\[path/to/]databasename/tablename\[.csv]*
+* INSERT INTO *\[path/to/]databasename/tablename\[.csv]*(*value1,value2,..*)
+* UPDATE *\[path/to/]databasename/tablename\[.csv]* SET *field1=value1,field2=value..* \[WHERE *condition*]
+* DELETE FROM *\[path/to/]databasename/tablename\[.csv]* WHERE *condition*
 
 ### Operators supported
 | Operator type | Operators |
@@ -138,7 +138,7 @@ icecoal.query("select * from path/to/passengers.csv, path/to/header.csv where na
 **NOTE :** Expression evaluation will use BODMAS as you studied in school. i.e., It has individual operator precedence unlike python or java.   
 **Example :** '9-7+1' will result '1'(That's how we were taught in school), where python eval() will return 3 as it treats + and - with equal precedence from left to right
 
-*You can use paranthesis to have precedence of your choice*
+*You can use paranthesis to re-order precedence*
 
 | Operator precedence |
 | :---: |
@@ -164,6 +164,7 @@ Comma seperated value(.csv) files.
 * Database,table names can contain only alphabet, number and underscore
 * Field names can contain only alphabets,number and underscore
 * All the exceptions are thrown to be handled by users
+* By default icecoal stores all its databases in current directory unless you prefix path with tablename
  
 ### Licence
 MIT Licence. Please raise a pull request to contribute.
