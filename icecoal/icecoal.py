@@ -1,14 +1,13 @@
-""" Module to execute SQL queries on a csv file
+""" Light weight SQL database
 Usage::
     >>> from icecoal import icecoal
     >>> result=icecoal.query("select name from input.csv,heads.csv where native='usa'")
 """
 
-from utilfuns import __dropdb, __mkdb, __mktable, __select, __droptable, __truntable, __insertrow, __update, __delete
-from expression import par
-from expression import create_exp_tree
-from const import *
-
+from .utilfuns import __dropdb, __mkdb, __mktable, __select, __droptable, __truntable, __insertrow, __update, __delete
+from .expression import par
+from .expression import create_exp_tree
+from .const import *
     
 
 

@@ -1,7 +1,7 @@
 import os
 import shutil
-from expression import evalthis
-from const import *
+from .expression import evalthis
+from .const import *
 
 def __select(required_fields,csvfile,headfile,etree):
     '''Function that returns rows that match the condition given

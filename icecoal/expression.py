@@ -1,4 +1,4 @@
-from const import *
+from .const import *
 
 class node:
     parent=None

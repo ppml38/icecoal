@@ -10,7 +10,7 @@ Targets are,
 
 ### Features:
 - Written purely in python
-- Light weight (Just 62 Kb in total)
+- Light weight (Just 57 Kb in total)
 - No external dependencies
 - Easy to add in your app/system (Just import!)
 
@@ -47,20 +47,20 @@ pip install icecoal
 ### Usage
 #### General database oprations
 ```python
-from icecoal import icecoal
-icecoal.query("select name,age from travel_db/passengers where native='USA'")
+from icecoal import query
+query("select name,age from travel_db/passengers where native='USA'")
 ```
 #### Processing your csv data files
 ```python
-from icecoal import icecoal
-icecoal.query("select * from path/to/passengers.csv where native='USA'")
+from icecoal import query
+query("select * from path/to/passengers.csv where native='USA'")
 ```
 Here icecoal expects first line of csv file to be header line.    
 if it is not, you can either add headers in first line    
 or create a new file just with headers delimited with comma and add it along with data file name in the query as below    
 ```python
-from icecoal import icecoal
-icecoal.query("select * from path/to/passengers.csv, path/to/header.csv where native='USA'")
+from icecoal import query
+query("select * from path/to/passengers.csv, path/to/header.csv where native='USA'")
 ```
 
 ### Return format
