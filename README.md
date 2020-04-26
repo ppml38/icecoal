@@ -14,6 +14,9 @@ Targets are,
 - No external dependencies
 - Easy to add in your app/system (Just import!)
 
+### Demo
+![](art/demo/demo.gif)
+
 ### In action
 #### Create a Database
 ![](art/demo/create_db.PNG)
@@ -45,10 +48,33 @@ pip install icecoal
 ```
 
 ### Usage
-#### General database oprations
+#### General database operations
 ```python
 from icecoal import query
 query("select name,age from travel_db/passengers where native='USA'")
+```
+#### Example
+```python
+from icecoal import query
+
+def display_names():
+    display_query="""
+    select
+        name, age
+    from
+        student_db/courses
+    where 
+        mark>50
+    """
+    
+    result = query(display_query)
+    if result[0]==0:
+        for row in result[2]:
+            print("Name is "+row[0]+" and Age is "+row[1])
+    else:
+        print(result[1])
+       
+display_names()
 ```
 #### Processing your csv data files
 ```python
@@ -61,6 +87,29 @@ or create a new file just with headers delimited with comma and add it along wit
 ```python
 from icecoal import query
 query("select * from path/to/passengers.csv, path/to/header.csv where native='USA'")
+```
+#### Example
+```python
+from icecoal import query
+
+def display_names():
+    display_query="""
+    select
+        price
+    from
+        D://reports/sales.csv, D://reports/header.csv
+    where 
+        store='online'
+    """
+    
+    result = query(display_query)
+    if result[0]==0:
+        for row in result[2]:
+            print("Price : "+row[0])
+    else:
+        print(result[1])
+       
+display_names()
 ```
 
 ### Return format
