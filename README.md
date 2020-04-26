@@ -5,7 +5,7 @@ Icecoal is a light weight SQL database
 Targets are,
 - Apps that require SQL DB or external DB server
 - Apps that need lightweight replacement for oracle, MySQL etc.., which they use just to store and retrieve data
-- Those who want to add a database in their app without worrying about JDBC, ODBC, connection driver etc. and other technical jargons
+- Those who want to add a database in their app without worrying about any technical jargons such as JDBC, ODBC, Connection driver etc..
 - Those who want to conveniently process CSV files with SQL.
 
 ### Features:
