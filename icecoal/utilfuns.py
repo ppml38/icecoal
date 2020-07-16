@@ -3,6 +3,14 @@ import shutil
 from .expression import evalthis
 from .const import *
 
+def setdel(deli):
+    global DELIMITER
+    DELIMITER=deli
+    return None
+def getdel():
+    global DELIMITER
+    return DELIMITER
+
 def __select(required_fields,csvfile,headfile,etree):
     '''Function that returns rows that match the condition given
     @param: requiired_fields-list of fields that need to be returned or *
@@ -16,6 +24,8 @@ def __select(required_fields,csvfile,headfile,etree):
     @return: -4 if header file is not name of a file
     @return: -5 field mentioned in select not found in table
     '''
+    global DELIMITER
+    print(DELIMITER.encode())
     #Initiate result set to empty
     result=[]
     count=0
@@ -30,12 +40,12 @@ def __select(required_fields,csvfile,headfile,etree):
 
     #open headfile if exist
     if headfile=='': # If no header file provided, first line of csvfile is the header line
-        head=__csv_file.readline().strip('\n').split(",")
+        head=__csv_file.readline().strip('\n').split(DELIMITER)
     else:
         if os.path.exists(headfile):
             if os.path.isfile(headfile):
                 hf=open(headfile,"r")
-                head=hf.readline().strip('\n').split(",")
+                head=hf.readline().strip('\n').split(DELIMITER)
                 hf.close()
             else:
                 return -4
@@ -44,7 +54,7 @@ def __select(required_fields,csvfile,headfile,etree):
     line=__csv_file.readline()
     while(len(line)!=0): #Until end of file
         if len(line.strip('\n'))!=0: #If the line is empty line
-            row=line.strip('\n').split(",")
+            row=line.strip('\n').split(DELIMITER)
             exec_result=evalthis(etree,head,row)
             if(exec_result==True):
                 if required_fields[0]=='*':
@@ -109,12 +119,12 @@ def __update(fields,values,csvfile,headfile,etree):
 
         #open headfile if exist
         if headfile=='': # If no header file provided, first line of csvfile is the header line
-            head=__csv_file.readline().strip('\n').split(",")
+            head=__csv_file.readline().strip('\n').split(DELIMITER)
         else:
             if os.path.exists(headfile):
                 if os.path.isfile(headfile):
                     hf=open(headfile,"r")
-                    head=hf.readline().strip('\n').split(",")
+                    head=hf.readline().strip('\n').split(DELIMITER)
                     hf.close()
                 else:
                     return -4
@@ -126,13 +136,13 @@ def __update(fields,values,csvfile,headfile,etree):
         #Write the header inside the file
         firstline=True
         if headfile=='':
-            __res_csv_file.write(",".join(head))
+            __res_csv_file.write(DELIMITER.join(head))
             firstline=False
         
         line=__csv_file.readline()
         while(len(line)!=0): #Until end of file
             if len(line.strip('\n'))!=0: #If the line is empty line
-                row=line.strip('\n').split(",")
+                row=line.strip('\n').split(DELIMITER)
                 exec_result=evalthis(etree,head,row)
                 if(exec_result==True): #Means this row should be updated before written in result file.
                     count+=1
@@ -149,10 +159,10 @@ def __update(fields,values,csvfile,headfile,etree):
                         if not field_found:
                             raise sqlerror(-11,"No field "+fields[i]+" found in header")
                     if firstline:
-                        __res_csv_file.write(",".join(row)) #without prepending new line
+                        __res_csv_file.write(DELIMITER.join(row)) #without prepending new line
                         firstline=False
                     else:
-                        __res_csv_file.write("\n"+(",".join(row))) #with prepending new line
+                        __res_csv_file.write("\n"+(DELIMITER.join(row))) #with prepending new line
                 elif exec_result==False:
                     if firstline:
                         __res_csv_file.write(line.strip('\n')) #Writing the read line back with no change. Note here while reading \n was at end of line but while writing its in front
@@ -219,12 +229,12 @@ def __delete(csvfile,headfile,etree):
 
         #open headfile if exist
         if headfile=='': # If no header file provided, first line of csvfile is the header line
-            head=__csv_file.readline().strip('\n').split(",")
+            head=__csv_file.readline().strip('\n').split(DELIMITER)
         else:
             if os.path.exists(headfile):
                 if os.path.isfile(headfile):
                     hf=open(headfile,"r")
-                    head=hf.readline().strip('\n').split(",")
+                    head=hf.readline().strip('\n').split(DELIMITER)
                     hf.close()
                 else:
                     return -4
@@ -236,13 +246,13 @@ def __delete(csvfile,headfile,etree):
         #Write the header inside the file
         firstline=True
         if headfile=='':
-            __res_csv_file.write(",".join(head))
+            __res_csv_file.write(DELIMITER.join(head))
             firstline=False
         
         line=__csv_file.readline()
         while(len(line)!=0): #Until end of file
             if len(line.strip('\n'))!=0: #If the line is empty line
-                row=line.strip('\n').split(",")
+                row=line.strip('\n').split(DELIMITER)
                 exec_result=evalthis(etree,head,row)
                 if(exec_result==True): #Means this row should be updated before written in result file.
                     count+=1
@@ -324,7 +334,7 @@ def __mktable(tablename,header): #Optionally with path
             return -2
         if not os.path.exists(tablename):
             newfile=open(tablename,'w')
-            newfile.write(header)
+            newfile.write((DELIMITER.join(header.split(","))))
             newfile.close()
             return 0
         #If table already exists do nothing return error code
@@ -353,12 +363,12 @@ def __insertrow(tablename,row):
                 
                 #Check if provided field count matches with table's field count
                 givenfile.seek(0)
-                if (len(givenfile.readline().strip('\n').split(','))) == (len(row.split(','))):
+                if (len(givenfile.readline().strip('\n').split(DELIMITER))) == (len(row.split(","))): #row will still be delimited by comma coming from query, we have to change to current DELIMITER when writing on file.
                 
                     #It is important NOT TO use os.linesep here instead of \n. Because, by default, while 'writing' python will replace all \n chars
                     #to os.linesep. so if we use os.linesep instead of \n, that will translate into \r\n in windows and further \n will be replaced with
                     #os.linesep(i.e.,\r\n). So atlast you will get \r\r\n written in storage, which will then be read as empty line and a line separator in windows.
-                    givenfile.write("\n"+row) #As we are adding \n here python will replace this with os.linesep(\r\n). which is important to avoid
+                    givenfile.write("\n"+(DELIMITER.join(row.split(",")))) #As we are adding \n here python will replace this with os.linesep(\r\n). which is important to avoid
                                             #appending new lines with existing last line instead of next line
                 else:
                     givenfile.close()

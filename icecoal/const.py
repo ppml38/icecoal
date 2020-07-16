@@ -3,6 +3,8 @@ import string
 #GLOBAL CONSTANTS
 __DEFAULT_DB_PATH__=''    #Default path where all database is stored. if nothing provided, its current directory
 __IGNORED_CHARS__=string.whitespace #Allowed white spaces withing query. Add any character here if you want to ignore that. remember to check if any other specific cases present for that character already
+DELIMITER=","
+
 
 # CONSTANTS RELATED TO RULE EXECUTION
 alphabet=['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']

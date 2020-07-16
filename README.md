@@ -62,6 +62,20 @@ or create a new file just with headers delimited with comma and add it along wit
 from icecoal import query
 query("select * from path/to/passengers.csv, path/to/header.csv where native='USA'")
 ```
+#### Change delimiters other than comma
+This feature is to expand users ability to process files that are delimited with chatacters other than comma.
+```python
+from icecoal import setdel
+setdel("\t")
+query("select * from path/to/datafile.xyz")
+```
+setdel() function will make further calls to query function to interpret data file as custom delimited (which is given by setdel() call)
+#### Get current default delimiter
+```python
+from icecoal import getdel
+getdel()
+```
+getdel() function will return current delimiter which is used to process data files.
 
 ### Return format
 ```

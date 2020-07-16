@@ -8,10 +8,6 @@ from .utilfuns import __dropdb, __mkdb, __mktable, __select, __droptable, __trun
 from .expression import par
 from .expression import create_exp_tree
 from .const import *
-    
-
-
-
 
 def execute_query(q):
     q+="#"
@@ -228,7 +224,7 @@ def execute_query(q):
             return rt
     else: #Keyword possibly blank
         return [-1,'Query incomplete',[]]
-            
+
 def query(q):
     """Parse and execute the query
     :param: Query string with mandatory input and header files.

@@ -6,5 +6,6 @@ Usage::
 """
 
 from .icecoal import query
+from .utilfuns import setdel,getdel
 
-__all__ = ('query')
+__all__=['query','setdel','getdel']
