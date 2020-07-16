@@ -115,18 +115,18 @@ display_names()
 #### Change delimiters other than comma
 This feature is to expand users ability to process files that are delimited with chatacters other than comma.
 ```python
-from icecoal import setdel
+from icecoal import setdel,query
 setdel("\t")
 query("select * from path/to/datafile.xyz")
 ```
-setdel() function will make further calls to query function to interpret data file as custom delimited (which is given by setdel() call)
+`setdel()` function will make further calls to query function to interpret data file as custom delimited (which is given by `setdel()` parameter)
 
 #### Get current default delimiter
 ```python
 from icecoal import getdel
 getdel()
 ```
-getdel() function will return current delimiter which is used to process data files.
+`getdel()` function will return current delimiter which is used to process data files.
 
 ### Return format
 ```
@@ -221,7 +221,8 @@ getdel() function will return current delimiter which is used to process data fi
 | \| |
 
 ### File formats supported
-Comma seperated value(.csv) files.
+Comma seperated value(.csv) files by default.    
+Can be extended to support any files with `setdel()` function. for example to process tab seperated files, use `setdel("\t")` before executing `query("...")`
 
 ### Instructions
 * Tables are referred with '/' character from database like 'db/table'
