@@ -25,7 +25,6 @@ def __select(required_fields,csvfile,headfile,etree):
     @return: -5 field mentioned in select not found in table
     '''
     global DELIMITER
-    print(DELIMITER.encode())
     #Initiate result set to empty
     result=[]
     count=0
@@ -363,12 +362,12 @@ def __insertrow(tablename,row):
                 
                 #Check if provided field count matches with table's field count
                 givenfile.seek(0)
-                if (len(givenfile.readline().strip('\n').split(DELIMITER))) == (len(row.split(","))): #row will still be delimited by comma coming from query, we have to change to current DELIMITER when writing on file.
+                if (len(givenfile.readline().strip('\n').split(DELIMITER))) == (len(row)): #row will still be delimited by comma coming from query, we have to change to current DELIMITER when writing on file.
                 
                     #It is important NOT TO use os.linesep here instead of \n. Because, by default, while 'writing' python will replace all \n chars
                     #to os.linesep. so if we use os.linesep instead of \n, that will translate into \r\n in windows and further \n will be replaced with
                     #os.linesep(i.e.,\r\n). So atlast you will get \r\r\n written in storage, which will then be read as empty line and a line separator in windows.
-                    givenfile.write("\n"+(DELIMITER.join(row.split(",")))) #As we are adding \n here python will replace this with os.linesep(\r\n). which is important to avoid
+                    givenfile.write("\n"+(DELIMITER.join(row))) #As we are adding \n here python will replace this with os.linesep(\r\n). which is important to avoid
                                             #appending new lines with existing last line instead of next line
                 else:
                     givenfile.close()

@@ -15,6 +15,8 @@ a_operator=['%','/','*','+','-']
 gt_lt=['<','>']
 logical=['&','|']
 quote=['"',"'"]
+singlequote=["'"]
+doublequote=['"']
 underscore=['_']
 
 class sqlerror(Exception):
@@ -30,7 +32,8 @@ exp_rules=[
         ["1","(","1",'','ob'],
         ["1",alphabet+underscore,"2",'varpush',''],
         ["1",number,"3",'operandpush',''],
-        ["1",quote,"5",'',''],
+        ["1",singlequote,"5",'',''],
+        ["1",doublequote,"5.1",'',''],
         
         ["2",alphabet+underscore,"2",'operandpush',''],
         ["2",a_operator,"1",'operatorpush','opandop'],
@@ -48,8 +51,10 @@ exp_rules=[
         ["3",'other',"2",'pass','operand'],
         ["4",'=',"1",'operatorpush','opandop'],
         ["4",'other',"1",'pass','operator'],
-        ["5",quote,"6",'','string'],
+        ["5",singlequote,"6",'','string'],
         ["5",'any',"5",'operandpush',''],
+        ["5.1",doublequote,"6",'','string'],
+        ["5.1",'any',"5.1",'operandpush',''],
         ["6",'=',"1",'operatorpush','operator'],
         ["6",'!',"8",'operatorpush',''],
         ["6",')',"6",'','cb'],
@@ -139,9 +144,12 @@ rule=[
     ['24',number+['.'],"24.2",'push',''],
         ['24.2',number+['.'],"24.2",'push',''],
         ['24.2','any',"24",'pass',''],
-    ['24',quote,"24.3",'push',''],
-        ['24.3',quote,"24",'push',''],
+    ['24',singlequote,"24.3",'push',''],
+        ['24.3',singlequote,"24",'push',''],
         ['24.3','any',"24.3",'push',''],
+    ['24',doublequote,"24.4",'push',''],
+        ['24.4',doublequote,"24",'push',''],
+        ['24.4','any',"24.4",'push',''],
     
     ['24',operator,"24",'push',''],
     ['24',['#'],'end','','exp_select'],
@@ -326,18 +334,23 @@ rule=[
     
     ['312',[')'],"313",'','row'],
     ['312',string.whitespace,"312",'',''],
-    ['312',[','],"312",'valuepush',''],
-    ['312',quote,"312.1",'',''],
-    ['312.1',quote,"312",'',''],
+    ['312',[','],"312",'listpush',''],
+    
+    ['312',singlequote,"312.1",'',''],
+    ['312.1',singlequote,"312",'',''],
     ['312.1','any',"312.1",'valuepush',''],
+
+    ['312',doublequote,"312.4",'',''],
+    ['312.4',doublequote,"312",'',''],
+    ['312.4','any',"312.4",'valuepush',''],
     
     ['312',"any","312.2",'valuepush',''],
     ['312.2',string.whitespace,"312.3",'',''],
-    ['312.2',[','],"312",'valuepush',''],
+    ['312.2',[','],"312",'listpush',''],
     ['312.2',[')'],"313",'','row'],
     ['312.2',"any","312.2",'valuepush',''],
     ['312.3',string.whitespace,"312.3",'',''],
-    ['312.3',[','],"312",'valuepush',''],
+    ['312.3',[','],"312",'listpush',''],
     ['312.3',[')'],"313",'','row'],
     
     ['313',string.whitespace,"313",'',''],
@@ -382,9 +395,12 @@ rule=[
     ['359.1',['='],"359.2",'','key'],
     ['359.2',string.whitespace,"359.2",'',''],
     ['359.2','any',"359.3",'pass',''],
-    ['359.3',quote,"359.4",'',''],
-        ['359.4',quote,"359.3",'','value'],
+    ['359.3',singlequote,"359.4",'',''],
+        ['359.4',singlequote,"359.3",'','value'],
         ['359.4','any',"359.4",'valpush',''],   
+    ['359.3',doublequote,"359.41",'',''],
+        ['359.41',doublequote,"359.3",'','value'],
+        ['359.41','any',"359.41",'valpush',''],   
     ['359.3',[','],"357.5",'','value'],
     ['359.3',string.whitespace,"359.5",'',''],
         ['359.5',string.whitespace,"359.5",'',''],
@@ -415,9 +431,12 @@ rule=[
     ['367',number+['.'],"367.2",'push',''],
         ['367.2',number+['.'],"367.2",'push',''],
         ['367.2','any',"367",'pass',''],
-    ['367',quote,"24.3",'push',''],
-        ['367.3',quote,"367",'push',''],
+    ['367',singlequote,"367.3",'push',''],
+        ['367.3',singlequote,"367",'push',''],
         ['367.3','any',"367.3",'push',''],
+    ['367',doublequote,"367.31",'push',''],
+        ['367.31',doublequote,"367",'push',''],
+        ['367.31','any',"367.31",'push',''],
     
     ['367',operator,"367",'push',''],
     ['367',['#'],'end','','exp_update'],
@@ -475,9 +494,12 @@ rule=[
     ['424',number+['.'],"424.2",'push',''],
         ['424.2',number+['.'],"424.2",'push',''],
         ['424.2','any',"424",'pass',''],
-    ['424',quote,"424.3",'push',''],
-        ['424.3',quote,"424",'push',''],
+    ['424',singlequote,"424.3",'push',''],
+        ['424.3',singlequote,"424",'push',''],
         ['424.3','any',"424.3",'push',''],
+    ['424',doublequote,"424.31",'push',''],
+        ['424.31',doublequote,"424",'push',''],
+        ['424.31','any',"424.31",'push',''],
     
     ['424',operator,"424",'push',''],
     ['424',['#'],'end','','delete']

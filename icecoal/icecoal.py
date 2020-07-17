@@ -13,6 +13,7 @@ def execute_query(q):
     q+="#"
     state='0'
     temp=""
+    templist=[]
     
     exp=''
     etree=None
@@ -38,7 +39,10 @@ def execute_query(q):
                     state=rule[j][2]
                     if rule[j][3]=="pass":
                         passthis=True
-                    elif rule[j][3]!='': #push
+                    elif rule[j][3]=='listpush':
+                        templist.append(temp)
+                        temp=''
+                    elif rule[j][3]!='': #push #valuepush
                         temp+=q[i]
                         
                     if rule[j][4]=="req": #clean
@@ -91,8 +95,10 @@ def execute_query(q):
                         header=temp
                         temp=''
                     elif rule[j][4]=="row":
-                        row=temp
+                        templist.append(temp)
+                        row=templist
                         temp=''
+                        templist=[]
                     elif rule[j][4]=="mktable":
                         keyword="mktable"
                     elif rule[j][4]=="drtb":
