@@ -8,7 +8,8 @@ from .utilfuns import __dropdb, __mkdb, __mktable, __select, __droptable, __trun
 from .expression import par
 from .expression import create_exp_tree
 from .const import *
-
+def escape(a):
+    return a.replace('\\','\\\\').replace("'","\\'").replace('"','\\"').replace("#","\\#")
 def execute_query(q):
     q+="#"
     state='0'

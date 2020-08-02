@@ -193,10 +193,10 @@ getdel()
 
 ### Character escape
 `'`,`"`,`\`,`#` shoule be escaped with `\` inside a string as `\'`,`\"`,`\\`,`\#`     
-you can use below function to escape these characters     
+icecoal has an inbuilt function `escape()` for this. you can call this function as follows.
 ```python
-def escape(self,a):
-    return a.replace('\\','\\\\').replace("'","\\'").replace('"','\\"').replace("#","\\#")
+from icecoal import escape
+escaped_string=escape("your string goes here")
 ```
 
 ### Operators supported
