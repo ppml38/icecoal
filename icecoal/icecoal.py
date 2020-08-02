@@ -231,7 +231,7 @@ def execute_query(q):
     else: #Keyword possibly blank
         return [-1,'Query incomplete',[]]
 
-def query(q):
+def query(q,limit=0):
     """Parse and execute the query
     :param: Query string with mandatory input and header files.
     :return: Matching list of rows
@@ -239,6 +239,13 @@ def query(q):
     :return: Empty list if no rows match
     """
     try:
-        return execute_query(q)
+        result=execute_query(q)
+        if limit>0:
+            result[2]=result[2][:limit]
+        elif limit<0:
+            result[2]=result[2][limit:]
+        else:
+            pass
+        return result
     except sqlerror as e:
         return [e.sqlcode,e.message,[]]

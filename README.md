@@ -191,6 +191,14 @@ getdel()
 * UPDATE \[*path/to/*]*databasename/tablename*\[*.csv*] SET *field1=value1,field2=value..* \[WHERE *condition*]
 * DELETE FROM \[*path/to/*]*databasename/tablename*\[*.csv*] WHERE *condition*
 
+### Character escape
+`'`,`"`,`\`,`#` shoule be escaped with `\` inside a string as `\'`,`\"`,`\\`,`\#`     
+you can use below function to escape these characters     
+```python
+def escape(self,a):
+    return a.replace('\\','\\\\').replace("'","\\'").replace('"','\\"').replace("#","\\#")
+```
+
 ### Operators supported
 | Operator type | Operators |
 | --- | --- |
